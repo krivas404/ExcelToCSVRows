@@ -15,22 +15,48 @@ wb = load_workbook(filename=file_name, read_only=True)
 sheet = wb[sheet_name]
 value_to_roundnum = s.value_to_roundnum
 
-def RoundUp(num, part_num, point, value):
-    i = int(num[point+value]) + 1
-    if i = 10 
+def GetValuePlusOne(value):
+    value = int(value)
+    value += 1
+    if value == 10:
+        return "1"
+    return str(value)
 
-def RoundNum(num, value):
-    num = str(num)
-    point = num.index('.')
-    if len(num[point:]) <= 3:
-        return num
-    start_of_num = num[:point + value]
-    end_of_num = num[point + value + 1:]
-    if end_of_num and int(end_of_num[0]) > 4:
-        start_of_num = start_of_num + str(int(num[point+value]) + 1)
-        return start_of_num
-    start_of_num = start_of_num + num[point+value]
-    return start_of_num
+# def RoundUp(num, part_num, point, value):
+#     i = int(num[point+value]) + 1
+#     if i == 10:
+
+
+def SaveNumWithoutDistortion(num):
+    num = num * 1000
+    result = int(num // 10)
+    filler = ''
+    if num < 100:
+        filler = '0.0'
+    if num % 10 >= 5:
+        result = int(num // 10 + 1)
+    if result < 0.1:
+        
+
+
+    string_result = str(result)
+    saved_num = string_result[:-2] +'.' + string_result[-2:]
+    return saved_num
+
+
+# def RoundNum(num, value):
+#     num = str(num)
+#     point = num.index('.')
+#     if len(num[point:]) <= 3:
+#         return num
+#     start_of_num = num[:point + value]
+#     end_of_num = num[point + value + 1:]
+#     number_to_check = end_of_num[0]
+#     num_to_add = num[point+value]
+#     if end_of_num and int(number_to_check) > 4:
+#         num_to_add = GetValuePlusOne(num_to_add)
+#     start_of_num = start_of_num + num_to_add
+#     return start_of_num
 
 
 def GetRowToWrite(row):
